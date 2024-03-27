@@ -1,4 +1,5 @@
-import { Publisher } from 'src/publisher/entities/publisher.entity';
+import { Exclude } from 'class-transformer';
+import { Publisher } from '../../publisher/entities/publisher.entity';
 import {
   BaseEntity,
   Column,
@@ -21,10 +22,11 @@ export class App extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
+  @Exclude()
   @Column({
     generated: 'uuid',
     unique: true,
-    select: false,
+    // select: false,
     nullable: false,
   })
   key: string;

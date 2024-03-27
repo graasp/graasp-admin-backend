@@ -1,9 +1,14 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { CreateAppDto } from './dto/create-app.dto';
 import { UpdateAppDto } from './dto/update-app.dto';
 import { App } from './entities/app.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { IApp } from './interfaces/app.interface';
 
 @Injectable()
 export class AppsService {
@@ -23,12 +28,23 @@ export class AppsService {
     }
   }
 
-  findAll() {
-    return this.appRepository.find();
+  async findAll(): Promise<IApp[]> {
+    const allApps = await this.appRepository.find({
+      relations: { publisher: true },
+    });
+    return allApps;
   }
 
-  findOne(id: string) {
-    return this.appRepository.findOne({ where: { id } });
+  async findOne(id: string) {
+    // if app is not found will return empty array
+    const [appEntity] = await this.appRepository.find({
+      where: { id },
+      relations: { publisher: true },
+    });
+    if (!appEntity) {
+      throw new NotFoundException();
+    }
+    return appEntity;
   }
 
   async update(id: string, updateAppDto: UpdateAppDto) {

@@ -8,8 +8,15 @@ describe('PublisherController', () => {
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [PublisherController],
-      providers: [PublisherService],
-    }).compile();
+    })
+      .useMocker((token) => {
+        if (token === PublisherService) {
+          return {
+            findAll: jest.fn().mockResolvedValue({}),
+          };
+        }
+      })
+      .compile();
 
     controller = module.get<PublisherController>(PublisherController);
   });

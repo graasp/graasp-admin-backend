@@ -22,7 +22,7 @@ export class AppsController {
   }
 
   @Get()
-  findAll() {
+  async findAll() {
     return this.appsService.findAll();
   }
 
