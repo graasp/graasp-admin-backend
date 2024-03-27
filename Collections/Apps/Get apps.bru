@@ -1,0 +1,15 @@
+meta {
+  name: Get apps
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{host}}/apps
+  body: none
+  auth: none
+}
+
+vars:post-response {
+  app_id: res("[0].id")
+}

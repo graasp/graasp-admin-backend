@@ -1,0 +1,22 @@
+meta {
+  name: Create App
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{host}}/apps
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "name": "New App",
+    "description": "A new app to be created",
+    "url": "http://apps.localhost:3012",
+    "publisher": {
+      "id": "{{publisher_id}}"
+    }
+  }
+}

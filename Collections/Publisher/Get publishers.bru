@@ -1,0 +1,15 @@
+meta {
+  name: Get publishers
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{host}}/publisher
+  body: none
+  auth: none
+}
+
+vars:post-response {
+  publisher_id: res("[0].id")
+}

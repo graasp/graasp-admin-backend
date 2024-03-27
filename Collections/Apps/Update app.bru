@@ -1,0 +1,17 @@
+meta {
+  name: Update app
+  type: http
+  seq: 4
+}
+
+patch {
+  url: {{host}}/apps/{{app_id}}
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "url": "http://apps.localhost:3014"
+  }
+}

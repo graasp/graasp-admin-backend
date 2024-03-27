@@ -2,7 +2,8 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { UserModule } from './user/user.module';
+import { AppsModule } from './app/apps.module';
+import { PublisherModule } from './publisher/publisher.module';
 
 @Module({
   imports: [
@@ -13,11 +14,12 @@ import { UserModule } from './user/user.module';
       username: 'docker',
       password: 'docker',
       database: 'docker',
-      entities: [],
+      autoLoadEntities: true,
       // the backend is supposed to synchronize the entities
       synchronize: false,
     }),
-    UserModule,
+    AppsModule,
+    PublisherModule,
   ],
   controllers: [AppController],
   providers: [AppService],
